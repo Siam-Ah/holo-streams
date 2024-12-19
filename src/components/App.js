@@ -34,8 +34,12 @@ export default function App() {
       .getLiveVideos({ org: "Hololive" })
       .then(function (videos) {
         // handle result
-        setStreams(videos);
-        console.log(videos[0]);
+        // console.log(videos);
+        const filteredVideos = videos.filter(
+          (videos) => videos.channel.raw.org === "Hololive"
+        );
+        setStreams(filteredVideos);
+        // console.log(filteredVideos);
       })
       .catch((error) => {
         console.log("Error fetching streams:", error);

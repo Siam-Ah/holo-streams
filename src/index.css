@@ -149,7 +149,7 @@ body {
 
 .list h3 {
   font-size: 1.8rem;
-  color: red;
+  color: var(--color-red-dark);
 }
 
 .list h4 {
