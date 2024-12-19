@@ -13,7 +13,8 @@ export default function ShowStream({ stream, chatRight, onChatRight }) {
       <header>
         <img src={stream.channel.photo} alt={stream.id} />
         <div className="details-overview">
-          <h2>{stream.title}</h2>
+          <h2>{stream.channel.name}</h2>
+          <h4>{stream.title}</h4>
           <p>{`Status: ${stream.status}`}</p>
           <p>{`Live viewers: ${stream.live_viewers}`}</p>
         </div>

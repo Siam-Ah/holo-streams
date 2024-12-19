@@ -50,8 +50,8 @@ body {
 }
 
 .box {
-  width: 50rem;
-  max-width: 50rem;
+  width: 70rem;
+  max-width: 70rem;
   background-color: var(--color-background-500);
   border-radius: 0.9rem;
   overflow: scroll;
@@ -149,6 +149,11 @@ body {
 
 .list h3 {
   font-size: 1.8rem;
+  color: red;
+}
+
+.list h4 {
+  font-size: 1.2rem;
 }
 
 .list div {
