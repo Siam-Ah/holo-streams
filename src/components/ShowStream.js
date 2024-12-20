@@ -1,20 +1,20 @@
 import { useState } from "react";
 import ShowChat from "./ShowChat";
 
-export default function ShowStream({ stream, chatRight, onChatRight }) {
-  const [chatBottom, setChatBottom] = useState(false);
-
-  function handleChatBottom() {
-    setChatBottom((chatBottom) => !chatBottom);
-  }
-
+export default function ShowStream({
+  stream,
+  chatRight,
+  onChatRight,
+  chatBottom,
+  onChatBottom,
+}) {
   return (
     <div className="details">
       <header>
         <img src={stream.channel.photo} alt={stream.id} />
         <div className="details-overview">
-          <h2>{stream.channel.name}</h2>
-          <h4>{stream.title}</h4>
+          <h2>{stream.title}</h2>
+          <h4>{stream.channel.name}</h4>
           <p>{`Status: ${stream.status}`}</p>
           <p>{`Live viewers: ${stream.live_viewers}`}</p>
         </div>
@@ -29,7 +29,7 @@ export default function ShowStream({ stream, chatRight, onChatRight }) {
       <div className="button-container">
         <button
           className="btn-action"
-          onClick={handleChatBottom}
+          onClick={onChatBottom}
           aria-expanded={chatBottom}
         >
           {!chatBottom ? `Show chat bottom` : `Hide chat bottom`}

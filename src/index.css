@@ -264,6 +264,7 @@ body {
   font-size: 2.4rem;
   margin-bottom: 0.4rem;
   line-height: 1.1;
+  color: var(--color-red);
 }
 
 .details-overview p {
