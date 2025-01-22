@@ -8,6 +8,7 @@ import ShowStream from "./ShowStream";
 import ShowChat from "./ShowChat";
 import Search from "./Search";
 import NumResults from "./NumResults";
+import HoloFilter from "./HoloFilter";
 
 export default function App() {
   const [streams, setStreams] = useState([]);
@@ -33,43 +34,27 @@ export default function App() {
     setChatBottom((chatBottom) => !chatBottom);
   }
 
-  useEffect(
-    function () {
-      const client = new HolodexApiClient({
-        apiKey: process.env.REACT_APP_API_KEY,
-      });
+  useEffect(function () {
+    const client = new HolodexApiClient({
+      apiKey: process.env.REACT_APP_API_KEY,
+    });
 
-      // Get Hololive's stream
-      client
-        .getLiveVideos({ org: "Hololive" })
-        .then(function (videos) {
-          // handle result
-          // console.log(videos);
-          const filteredVideos = videos.filter(
-            (videos) => videos.channel.raw.org === "Hololive"
-          );
-          if (query === "") {
-            setStreams(filteredVideos);
-          } else {
-            const queriedVideos = filteredVideos.filter(
-              (videos) =>
-                videos.channel.raw.name
-                  .toUpperCase()
-                  .includes(query.toUpperCase()) ||
-                videos.channel.raw.english_name
-                  .toUpperCase()
-                  .includes(query.toUpperCase())
-            );
-            setStreams(queriedVideos);
-          }
-          console.log(filteredVideos);
-        })
-        .catch((error) => {
-          console.log("Error fetching streams:", error);
-        });
-    },
-    [query]
-  );
+    // Get Hololive's stream
+    client
+      .getLiveVideos({ org: "Hololive" })
+      .then(function (videos) {
+        // handle result
+        // console.log(videos);
+        const filteredVideos = videos.filter(
+          (videos) => videos.channel.raw.org === "Hololive"
+        );
+        setStreams(filteredVideos);
+        console.log(filteredVideos);
+      })
+      .catch((error) => {
+        console.log("Error fetching streams:", error);
+      });
+  }, []);
 
   // // Get Usada Pekora's channel info
   // client.getChannel("UC1DCedRgGHBdm81E1llLhOQ").then(function (channel) {
@@ -82,12 +67,19 @@ export default function App() {
   return (
     <div>
       <Navbar>
-        <Search query={query} setQuery={setQuery} />
-        <NumResults streams={streams} />
+        <div className="search-container">
+          <Search query={query} setQuery={setQuery} />
+          <HoloFilter />
+        </div>
+        <NumResults />
       </Navbar>
       <Main>
         <Box>
-          <StreamList streams={streams} onSelectStream={handleSelectedStream} />
+          <StreamList
+            streams={streams}
+            query={query}
+            onSelectStream={handleSelectedStream}
+          />
         </Box>
         {selectedStream ? (
           <Box>
